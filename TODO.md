@@ -1,0 +1,5 @@
+- [ ] if statements to insert hypens between vowels (?)
+- [ ] show full filename incl. relative directory
+- [ ] anonymous functions in categories
+- [ ] strip duplicates!
+- [ ] specify orderings?

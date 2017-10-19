@@ -1,0 +1,112 @@
+# vim: set syntax=madlang :
+
+:define both-cata
+    1.0 "para"
+    1.0 "prepro"
+    1.0 "zygo"
+    1.0 "histo"
+    1.0 "mutu"
+    0.5 "synchro"
+    0.5 "dendro"
+
+:define cata-body
+    1.0 "cata"
+
+:define prefix-cata-fn
+    1.0 "mono"
+
+:category prefix-cata
+    #prefix-cata-fn
+    both-cata
+
+:category cata
+    cata-body
+    both-cata
+
+:define both-ana
+    1.0 "apo"
+    1.0 "postpro"
+    1.0 "futu"
+    0.5 "chema"
+
+:define ana-body
+    1.0 "ana"
+
+:define prefix-ana-fn
+    1.0 "epi"
+
+:category ana
+    ana-body
+    both-ana
+
+:category prefix-ana
+    both-ana
+    #prefix-ana-fn
+
+:define both-hylo
+    1.0 "chrono"
+
+    # rare morphisms
+    0.5 "meta"
+
+    # fake morphisms
+    0.5 "symplecto"
+    0.5 "pata"
+
+:define hylo-body
+    1.0 "hylo"
+
+:define prefix-hylo-fn
+    # math morphisms
+    1.0 "endo"
+
+:category hylo
+    hylo-body
+    both-hylo
+
+:category prefix-hylo
+    both-hylo
+    #prefix-hylo-fn
+
+:category prefix
+    prefix-hylo
+    prefix-cata
+    prefix-ana
+
+:define math
+    1.0 "diffeo"
+    1.0 "homo"
+    1.0 "homeo"
+    1.0 "endo"
+    1.0 "symplecto"
+    1.0 "iso"
+    1.0 "auto"
+    
+:define monadic
+    0.05 "Mendler-style "
+    0.05 "Elgot "
+    1.00 "monadic "
+    1.75 "generalized "
+    0.10 "generalized monadic "
+    2.5 ""
+
+# TODO no duplication
+:define scheme
+    
+    # three prefixed-morphisms
+    1.0 monadic prefix-ana prefix-ana "morphic " ana "morphism"
+    1.0 monadic prefix-cata prefix-cata "morphic " cata "morphism"
+    1.3 monadic prefix prefix-hylo "morphic " hylo "morphism"
+
+    # twi-prefixed morphisms
+    2.0 monadic prefix-cata "morphic " cata "morphism"
+    2.0 monadic prefix-ana "morphic " ana "morphism"
+    2.6 monadic prefix "morphic " hylo "morphism"
+
+    # once-prefixed morphisms
+    0.7 monadic ana "morphism"
+    0.7 monadic hylo "morphism"
+    0.91 monadic cata "morphism"
+
+:return
+    1.0 scheme
