@@ -6,7 +6,7 @@ Written using the [miso](https://haskell-miso.org) framework and the
 
 ## Building
 
-Installing the following:
+Install the following:
 
   * [just](https://github.com/casey/just)
   * [shake](http://shakebuild.com)
