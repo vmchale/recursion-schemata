@@ -1,7 +1,7 @@
 size:
     @sn d target/all.min.js
 
-build: script
+build:
     @./shake
 
 script:
@@ -10,7 +10,7 @@ script:
     cd .shake && ghc -O2 shake.hs -o shake
     @mv .shake/shake .
 
-deploy:
+deploy: build
     cp target/* ~/programming/rust/nessa-site/static/recursion-scheme-generator
 
 clean:

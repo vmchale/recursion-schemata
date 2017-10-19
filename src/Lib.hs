@@ -60,7 +60,7 @@ updateModel (Write t) _  = noEff t
 updateModel NoOp m       = noEff m
 
 keypress :: S.Set Int -> Action
-keypress keys = if 82 `elem` S.toList keys then Regenerate else NoOp
+keypress keys = if 82 `elem` S.toList keys && 17 `notElem` S.toList keys then Regenerate else NoOp
 
 viewModel :: Model -> View Action
 viewModel x = div_ backgroundStyle
