@@ -1,5 +1,3 @@
-# vim: set syntax=madlang :
-
 :define both-cata
     1.0 "para"
     1.0 "prepro"
@@ -15,9 +13,9 @@
 :define prefix-cata-fn
     1.0 "mono"
 
-:category prefix-cata
-    #prefix-cata-fn
-    both-cata
+:define prefix-cata
+    0.065 prefix-cata-fn
+    1.0 both-cata
 
 :category cata
     cata-body
@@ -39,17 +37,13 @@
     ana-body
     both-ana
 
-:category prefix-ana
-    both-ana
-    #prefix-ana-fn
+:define prefix-ana
+    1.0 both-ana
+    0.065 prefix-ana-fn
 
 :define both-hylo
     1.0 "chrono"
-
-    # rare morphisms
     0.5 "meta"
-
-    # fake morphisms
     0.5 "symplecto"
     0.5 "pata"
 
@@ -57,16 +51,15 @@
     1.0 "hylo"
 
 :define prefix-hylo-fn
-    # math morphisms
     1.0 "endo"
 
 :category hylo
     hylo-body
     both-hylo
 
-:category prefix-hylo
-    both-hylo
-    #prefix-hylo-fn
+:define prefix-hylo
+    1.0 both-hylo
+    0.065 prefix-hylo-fn
 
 :category prefix
     prefix-hylo

@@ -53,7 +53,7 @@ buttonTraits = class_ "button" : buttonFont
 fontStyles :: [Attribute action]
 fontStyles = [ style_ $ M.fromList [("font", "30px \"Comic Sans MS\", Helvetica, sans-serif")] ]
 
-updateModel :: Action -> Model -> Effect Action Model -- Action -> Model -> Effect Model Action
+updateModel :: Action -> Model -> Effect Action Model
 updateModel Regenerate m = m <# fmap Write randomText
 updateModel (Write t) _  = noEff t
 updateModel NoOp m       = noEff m
@@ -64,11 +64,11 @@ keypress = onKeyPress gan
           gan _            = NoOp
 
 viewModel :: Model -> View Action
-viewModel x = div_ backgroundStyle
+viewModel x = div_ (keypress : backgroundStyle)
     [
       p_ largeFont [ text "Press 'another' for a new recursion scheme" ]
     , p_ [] [ div_ (onClick Regenerate : buttonTraits) [ text "another" ] ]
-    , p_ (keypress : fontStyles) [ text (toMisoString x) ]
+    , p_ fontStyles [ text (toMisoString x) ]
     , p_ [] [ footer ]
     ]
 
@@ -77,4 +77,6 @@ footerParagraph = [ style_ $ M.fromList [("align", "bottom"), ("position", "abso
 
 footer :: View Action
 footer = footer_ [ class_ "info" ]
-    [ p_ footerParagraph [ a_ [ href_ "https://github.com/vmchale/recursion-schemata" ] [ text "source" ] ] ]
+    [ p_ footerParagraph
+        [ a_ [ href_ "https://github.com/vmchale/recursion-schemata" ] [ text "source" ] ]
+        , a_ [ href_ "http://blog.vmchale.com" ] [ text "author" ] ]
