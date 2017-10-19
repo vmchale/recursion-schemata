@@ -9,6 +9,7 @@ module Lib
 
 import           Data.FileEmbed (embedStringFile)
 import qualified Data.Map       as M
+import qualified Data.Set       as S
 import           Data.Text      (Text)
 import           Miso
 import           Miso.String
@@ -36,7 +37,7 @@ exec = startApp App {..}
     update = updateModel
     view   = viewModel
     events = defaultEvents
-    subs   = []
+    subs   = [ keyboardSub keypress ]
 
 backgroundStyle :: [Attribute action]
 backgroundStyle = [ style_ $ M.fromList [("color", "#4d4d4d"), ("margin-left", "15%"), ("margin-top", "15%") ] ]
@@ -58,15 +59,13 @@ updateModel Regenerate m = m <# fmap Write randomText
 updateModel (Write t) _  = noEff t
 updateModel NoOp m       = noEff m
 
-keypress :: Attribute Action
-keypress = onKeyPress gan
-    where gan (KeyCode 82) = Regenerate
-          gan _            = NoOp
+keypress :: S.Set Int -> Action
+keypress keys = if 82 `elem` S.toList keys then Regenerate else NoOp
 
 viewModel :: Model -> View Action
-viewModel x = div_ (keypress : backgroundStyle)
+viewModel x = div_ backgroundStyle
     [
-      p_ largeFont [ text "Press 'another' for a new recursion scheme" ]
+      p_ largeFont [ text "Press 'another' or push 'r' for a new recursion scheme" ]
     , p_ [] [ div_ (onClick Regenerate : buttonTraits) [ text "another" ] ]
     , p_ fontStyles [ text (toMisoString x) ]
     , p_ [] [ footer ]
