@@ -18,7 +18,7 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake", shakeLint = Just LintBasi
         cmd ["stack", "clean"]
 
     "README.md" %> \out -> do
-        hs <- getDirectoryFiles "" ["//*.hs"]
+        hs <- getDirectoryFiles "" ["src//*.hs"]
         yaml <- getDirectoryFiles "" ["//*.yaml"]
         cabal <- getDirectoryFiles "" ["//*.cabal"]
         mad <- getDirectoryFiles "" ["//*.mad"]
