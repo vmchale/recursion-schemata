@@ -9,12 +9,16 @@ Written using the [miso](https://haskell-miso.org) framework and the
 Install the following:
 
   * [just](https://github.com/casey/just)
-  * [shake](http://shakebuild.com)
+  * [stack](https://docs.haskellstack.org/en/stable/README/)
+  * [cabal](https://www.haskell.org/cabal/download.html)
+  * [ghc](https://www.haskell.org/ghc/download.html)
   * [ccjs](https://www.npmjs.com/package/closure-compiler)
 
 Then:
 
 ```bash
+ $ cabal update
+ $ cabal install shake
  $ just build
 ```
 
