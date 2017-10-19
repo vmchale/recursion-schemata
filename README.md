@@ -12,7 +12,7 @@ Install the following:
   * [stack](https://docs.haskellstack.org/en/stable/README/)
   * [cabal](https://www.haskell.org/cabal/download.html)
   * [ghc](https://www.haskell.org/ghc/download.html)
-  * [ccjs](https://www.npmjs.com/package/closure-compiler)
+  * [ccjs](https://www.npmjs.com/package/closurecompiler)
 
 Then:
 
