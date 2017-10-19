@@ -1,12 +1,3 @@
-#!/usr/bin/env stack
-{- stack --resolver lts-9.9 --install-ghc
-    runghc
-    --package shake
-    --package directory
-    --package strict
-    --stack-yaml stack-shake.yaml
--}
-
 import           Data.Maybe
 import           Data.Monoid
 import           Development.Shake
@@ -14,21 +5,10 @@ import           Development.Shake.Command
 import           Development.Shake.FilePath
 import           Development.Shake.Util
 import           System.Directory
-import qualified System.IO.Strict                      as Strict
---
-import           Data.Version
-import           Distribution.Package
-import           Distribution.PackageDescription
-import           Distribution.PackageDescription.Parse
-import           Distribution.Verbosity
-
-version :: IO String
-version = do
-    generic <- readPackageDescription normal "recursion-scheme-generator.cabal"
-    pure . showVersion . pkgVersion . package . packageDescription $ generic
+import qualified System.IO.Strict           as Strict
 
 main :: IO ()
-main = version >>= \v -> shakeArgs shakeOptions { shakeFiles = ".shake", shakeLint = Just LintBasic, shakeVersion = v } $ do
+main = shakeArgs shakeOptions { shakeFiles = ".shake", shakeLint = Just LintBasic } $ do
     want [ "target/index.html", "README.md" ]
 
     "clean" ~> do
