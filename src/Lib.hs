@@ -78,5 +78,4 @@ footerParagraph = [ style_ $ M.fromList [("align", "bottom"), ("position", "abso
 footer :: View Action
 footer = footer_ [ class_ "info" ]
     [ p_ footerParagraph
-        [ a_ [ href_ "https://github.com/vmchale/recursion-schemata" ] [ text "source" ] ]
-        , a_ [ href_ "http://blog.vmchale.com" ] [ text "author" ] ]
+        [ a_ [ href_ "https://github.com/vmchale/recursion-schemata" ] [ text "source" ] ] ]
