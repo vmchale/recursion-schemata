@@ -45,7 +45,7 @@ main = version >>= \v -> shakeArgs shakeOptions { shakeFiles = ".shake", shakeLi
         html <- getDirectoryFiles "" ["//*.html"]
         css <- getDirectoryFiles "" ["//*.css"]
         need $ hs <> yaml <> cabal <> mad <> html <> css
-        (Stdout out) <- cmd ["tokei", ".", "-e", "README.md", "-e", "target/"]
+        (Stdout out) <- cmd ["tokei", ".", "-e", "README.md", "-e", "target/", "-e", "Justfile"]
         file <- liftIO $ Strict.readFile "README.md"
         let header = takeWhile (/= replicate 79 '-') $ lines file
         let new = unlines header ++ out ++ "```\n"
