@@ -22,8 +22,8 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake", shakeLint = Just LintBasi
         yaml <- getDirectoryFiles "" ["//*.yaml"]
         cabal <- getDirectoryFiles "" ["//*.cabal"]
         mad <- getDirectoryFiles "" ["//*.mad"]
-        html <- getDirectoryFiles "" ["//*.html"]
-        css <- getDirectoryFiles "" ["//*.css"]
+        html <- getDirectoryFiles "" ["web-src//*.html"]
+        css <- getDirectoryFiles "" ["web-src//*.css"]
         need $ hs <> yaml <> cabal <> mad <> html <> css
         (Stdout out) <- cmd ["tokei", ".", "-e", "README.md", "-e", "target/", "-e", "Justfile"]
         file <- liftIO $ Strict.readFile "README.md"

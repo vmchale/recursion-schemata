@@ -1,7 +1,22 @@
 # recursion scheme generator
 
 Try it out [here](http://vmchale.com/recursion-scheme-generator/index.html).
-Written using the [miso](https://haskell-miso.org) framework.
+Written using the [miso](https://haskell-miso.org) framework and the
+[Madlang](https://github.com/vmchale/madlang) language.
+
+## Building
+
+Installing the following:
+
+  * [just](https://github.com/casey/just)
+  * [shake](http://shakebuild.com)
+  * [ccjs](https://www.npmjs.com/package/closure-compiler)
+
+Then:
+
+```bash
+ $ just build
+```
 
 ## Contents
 
