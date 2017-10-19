@@ -1,9 +1,9 @@
-# recursion-scheme-generator
+# recursion scheme generator
 
 Try it out [here](http://vmchale.com/recursion-scheme-generator/index.html).
 Written using the [miso](https://haskell-miso.org) framework.
 
-## Repo Contents
+## Contents
 
 ```
 -------------------------------------------------------------------------------
@@ -13,11 +13,11 @@ Written using the [miso](https://haskell-miso.org) framework.
  CSS                     1           32           28            0            4
  Haskell                 4          171          128           12           31
  HTML                    1           10           10            0            0
- Justfile                1           17           11            2            4
+ Justfile                1           10            8            0            2
  Madlang                 1          112           76           11           25
  Markdown                1            5            5            0            0
  YAML                    2           24           24            0            0
 -------------------------------------------------------------------------------
- Total                  12          423          327           28           68
+ Total                  12          416          324           26           66
 -------------------------------------------------------------------------------
 ```
