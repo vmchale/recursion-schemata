@@ -11,6 +11,7 @@ import           Data.FileEmbed (embedStringFile)
 import qualified Data.Map       as M
 import           Data.Text      (Text)
 import           Miso
+import           Miso.String
 import           Text.Madlibs   (runText)
 
 sourceFile :: Text
@@ -24,7 +25,6 @@ type Model = Text
 data Action
   = Regenerate
   | Write Text
-  | Start
   | NoOp
   deriving (Show, Eq)
 
@@ -54,7 +54,6 @@ fontStyles :: [Attribute action]
 fontStyles = [ style_ $ M.fromList [("font", "30px \"Comic Sans MS\", Helvetica, sans-serif")] ]
 
 updateModel :: Action -> Model -> Effect Model Action
-updateModel Start _      = noEff ""
 updateModel Regenerate m = m <# fmap Write randomText
 updateModel (Write t) _  = noEff t
 updateModel NoOp m       = noEff m
@@ -67,9 +66,15 @@ keypress = onKeyPress gan
 viewModel :: Model -> View Action
 viewModel x = div_ backgroundStyle
     [
-      p_ largeFont [ text ("Press 'another' for a new recursion scheme" :: String) ]
-    , p_ [] [ div_ (onClick Regenerate : buttonTraits) [ text ("another" :: String) ] ]
-    , p_ (keypress : fontStyles) [ text x ]
+      p_ largeFont [ text ("Press 'another' for a new recursion scheme" :: MisoString) ]
+    , p_ [] [ div_ (onClick Regenerate : buttonTraits) [ text ("another" :: MisoString) ] ]
+    , p_ (keypress : fontStyles) [ text (toMisoString x) ]
+    , p_ [] [ footer ]
     ]
 
-footer :: 
+footerParagraph :: [Attribute action]
+footerParagraph = [ style_ $ M.fromList [("align", "bottom"), ("position", "absolute"), ("bottom", "200px")] ]
+
+footer :: View Action
+footer = footer_ [ class_ "info" ]
+    [ p_ footerParagraph [ a_ [ href_ "https://github.com/vmchale/recursion-schemata" ] [ text ("source" :: MisoString) ] ] ]
