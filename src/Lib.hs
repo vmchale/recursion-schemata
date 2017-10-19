@@ -66,8 +66,8 @@ keypress = onKeyPress gan
 viewModel :: Model -> View Action
 viewModel x = div_ backgroundStyle
     [
-      p_ largeFont [ text ("Press 'another' for a new recursion scheme" :: MisoString) ]
-    , p_ [] [ div_ (onClick Regenerate : buttonTraits) [ text ("another" :: MisoString) ] ]
+      p_ largeFont [ text "Press 'another' for a new recursion scheme" ]
+    , p_ [] [ div_ (onClick Regenerate : buttonTraits) [ text "another" ] ]
     , p_ (keypress : fontStyles) [ text (toMisoString x) ]
     , p_ [] [ footer ]
     ]
@@ -77,4 +77,4 @@ footerParagraph = [ style_ $ M.fromList [("align", "bottom"), ("position", "abso
 
 footer :: View Action
 footer = footer_ [ class_ "info" ]
-    [ p_ footerParagraph [ a_ [ href_ "https://github.com/vmchale/recursion-schemata" ] [ text ("source" :: MisoString) ] ] ]
+    [ p_ footerParagraph [ a_ [ href_ "https://github.com/vmchale/recursion-schemata" ] [ text "source" ] ] ]
