@@ -4,25 +4,6 @@ Try it out [here](http://vmchale.com/recursion-scheme-generator/index.html).
 Written using the [miso](https://haskell-miso.org) framework and the
 [Madlang](https://github.com/vmchale/madlang) language.
 
-## Building
-
-Install the following:
-
-  * [just](https://github.com/casey/just)
-  * [stack](https://docs.haskellstack.org/en/stable/README/)
-  * [cabal](https://www.haskell.org/cabal/download.html)
-  * [ghc](https://www.haskell.org/ghc/download.html)
-  * [ccjs](https://www.npmjs.com/package/closurecompiler)
-
-Then:
-
-```bash
- $ cabal update
- $ cabal install shake
- $ just script
- $ just build
-```
-
 ## Contents
 
 ```
