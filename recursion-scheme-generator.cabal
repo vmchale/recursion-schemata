@@ -27,7 +27,7 @@ library
   exposed-modules:     Lib
   build-depends:       base >= 4.7 && < 5
                      , miso == 0.4.*
-                     , madlang >= 2.4.2.22
+                     , madlang >= 3.0.0.0
                      , text
                      , containers
                      , file-embed

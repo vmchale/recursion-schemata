@@ -18,8 +18,8 @@
     1.0 both-cata
 
 :category cata
-    cata-body
-    both-cata
+    | cata-body
+    | both-cata
 
 :define both-ana
     1.0 "apo"
@@ -34,8 +34,8 @@
     1.0 "epi"
 
 :category ana
-    ana-body
-    both-ana
+    | ana-body
+    | both-ana
 
 :define prefix-ana
     1.0 both-ana
@@ -54,17 +54,17 @@
     1.0 "endo"
 
 :category hylo
-    hylo-body
-    both-hylo
+    | hylo-body
+    | both-hylo
 
 :define prefix-hylo
     1.0 both-hylo
     0.065 prefix-hylo-fn
 
 :category prefix
-    prefix-hylo
-    prefix-cata
-    prefix-ana
+    | prefix-hylo
+    | prefix-cata
+    | prefix-ana
 
 :define math
     1.0 "diffeo"

@@ -2,7 +2,7 @@
 
 Try it out [here](http://vmchale.com/recursion-scheme-generator/index.html).
 Written using the [miso](https://haskell-miso.org) framework and the
-[Madlang](https://github.com/vmchale/madlang) language.
+[Madlang](https://github.com/vmchale/madlang) text-generation language.
 
 ## Contents
 

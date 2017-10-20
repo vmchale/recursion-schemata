@@ -13,9 +13,5 @@ script:
 deploy: build
     cp target/* ~/programming/rust/nessa-site/static/recursion-scheme-generator
 
-clean:
-    sn c .
-    rm -rf target/ tags .shake shake
-
 view: build
     firefox-trunk target/index.html
