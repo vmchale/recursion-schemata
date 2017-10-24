@@ -11,6 +11,10 @@ main :: IO ()
 main = shakeArgs shakeOptions { shakeFiles = ".shake", shakeLint = Just LintBasic } $ do
     want [ "target/index.html", "README.md" ]
 
+    "deploy" ~> do
+        need [ "target/index.html" ]
+        cmd ["ion", "-c", "cp target/* ~/programming/rust/nessa-site/static/recursion-scheme-generator"]
+
     "clean" ~> do
         putNormal "cleaning files..."
         unit $ cmd ["rm", "-rf", "tags"]

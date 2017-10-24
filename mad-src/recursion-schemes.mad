@@ -76,8 +76,8 @@
     1.0 "auto"
     
 :define monadic
-    0.05 "Mendler-style "
-    0.05 "Elgot "
+    0.075 "Mendler-style "
+    0.075 "Elgot "
     1.00 "monadic "
     1.75 "generalized "
     0.10 "generalized monadic "
