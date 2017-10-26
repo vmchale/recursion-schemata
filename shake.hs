@@ -46,7 +46,7 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake", shakeLint = Just LintBasi
     ".stack-work/dist/x86_64-linux/Cabal-1.24.2.0_ghcjs/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.js" %> \out -> do
         need ["src/Lib.hs","recursion-scheme-generator.cabal","stack.yaml","mad-src/recursion-schemes.mad"]
         -- check the recursion-schemes.mad file so we don't push anything wrong
-        unit $ cmd ["bash", "-c", "madlang debug mad-src/recursion-schemes.mad > /dev/null"]
+        unit $ cmd ["bash", "-c", "madlang check mad-src/recursion-schemes.mad > /dev/null"]
         cmd ["stack", "build", "--stack-yaml", "stack.yaml", "--install-ghc"]
 
     ".stack-work/dist/x86_64-linux/Cabal-1.24.2.0_ghcjs/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.min.js" %> \out -> do

@@ -6,10 +6,11 @@ flags:
     development: true
 extra-deps:
   - miso-0.9.0.0
-  - madlang-3.0.0.1
+  - madlang-3.1.0.7
   - composition-prelude-0.1.1.0
   - megaparsec-6.2.0
   - parser-combinators-0.2.0
+  - titlecase-1.0.1
 allow-newer: true
 resolver: lts-8.11
 compiler: ghcjs-0.2.1.9008011_ghc-8.0.2

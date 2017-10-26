@@ -7,7 +7,7 @@ build:
 script:
     @mkdir -p .shake
     @cp shake.hs .shake
-    cd .shake && ghc -O2 shake.hs -o shake
+    @cd .shake && ghc -O2 shake.hs -o shake
     @mv .shake/shake .
 
 view: build
