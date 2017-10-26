@@ -6,7 +6,7 @@ flags:
     development: true
 extra-deps:
   - miso-0.9.0.0
-  - madlang-3.1.0.7
+  - madlang-3.1.1.0
   - composition-prelude-0.1.1.0
   - megaparsec-6.2.0
   - parser-combinators-0.2.0
