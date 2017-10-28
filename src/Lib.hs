@@ -7,19 +7,15 @@ module Lib
     ) where
 
 
-import           Data.FileEmbed (embedStringFile)
-import qualified Data.Map       as M
-import qualified Data.Set       as S
-import           Data.Text      (Text)
+import qualified Data.Map     as M
+import qualified Data.Set     as S
+import           Data.Text    (Text)
 import           Miso
 import           Miso.String
-import           Text.Madlibs   (runText)
-
-sourceFile :: Text
-sourceFile = $(embedStringFile "mad-src/recursion-schemes.mad")
+import           Text.Madlibs (madFile, run)
 
 randomText :: IO Text
-randomText = runText [] "noSrc" sourceFile
+randomText = run $(madFile "mad-src/recursion-schemes.mad")
 
 type Model = Text
 

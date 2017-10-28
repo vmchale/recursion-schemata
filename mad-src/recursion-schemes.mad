@@ -69,6 +69,8 @@
 :define monadic
     0.07 "Mendler-style "
     0.07 "Elgot "
+    0.03 "septuafoliate "
+
     1.00 "monadic "
     1.75 "generalized "
     0.10 "generalized monadic "
