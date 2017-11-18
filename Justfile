@@ -1,5 +1,5 @@
 ghcjs:
-    cabal install https://github.com/matchwood/ghcjs-stack-dist/raw/master/ghcjs-0.2.1.9008011.tar.gz -w ghc-8.2.1
+    cabal install https://github.com/matchwood/ghcjs-stack-dist/raw/master/ghcjs-0.2.1.9008011.tar.gz -w ghc-8.0.2
 
 size:
     @sn d target/all.min.js
