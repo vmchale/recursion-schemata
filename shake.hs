@@ -39,23 +39,24 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake", shakeLint = Just LintBasi
     "purge" ~> do
         putNormal "purging local files..."
         unit $ cmd ["rm", "-rf", "tags", "shake"]
-        removeFilesAfter ".stack-work" ["//*"]
+        removeFilesAfter "dist-newstyle" ["//*"]
+        removeFilesAfter "dist" ["//*"]
         removeFilesAfter ".shake" ["//*"]
         removeFilesAfter "target" ["//*"]
 
-    ".stack-work/dist/x86_64-linux/Cabal-1.24.2.0_ghcjs/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.js" %> \out -> do
-        need ["src/Lib.hs","recursion-scheme-generator.cabal","stack.yaml","mad-src/recursion-schemes.mad"]
+    "dist-newstyle/build/x86_64-linux/ghcjs-0.2.1.9008011/recursion-scheme-generator-0.1.0.0/c/recursion-scheme-generator/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.js" %> \out -> do
+        need ["src/Lib.hs","recursion-scheme-generator.cabal","cabal.project.local","mad-src/recursion-schemes.mad"]
         -- check the recursion-schemes.mad file so we don't push anything wrong
         unit $ cmd ["bash", "-c", "madlang check mad-src/recursion-schemes.mad > /dev/null"]
-        cmd ["stack", "build", "--stack-yaml", "stack.yaml", "--install-ghc"]
+        cmd ["cabal", "new-build", "--ghcjs"]
 
-    ".stack-work/dist/x86_64-linux/Cabal-1.24.2.0_ghcjs/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.min.js" %> \out -> do
-        need [".stack-work/dist/x86_64-linux/Cabal-1.24.2.0_ghcjs/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.js"]
-        cmd (Cwd ".stack-work/dist/x86_64-linux/Cabal-1.24.2.0_ghcjs/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/") Shell "ccjs all.js --externs=node --externs=all.js.externs > all.min.js"
+    "dist-newstyle/build/x86_64-linux/ghcjs-0.2.1.9008011/recursion-scheme-generator-0.1.0.0/c/recursion-scheme-generator/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.min.js" %> \out -> do
+        need ["dist-newstyle/build/x86_64-linux/ghcjs-0.2.1.9008011/recursion-scheme-generator-0.1.0.0/c/recursion-scheme-generator/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.js"]
+        cmd (Cwd "dist-newstyle/build/x86_64-linux/ghcjs-0.2.1.9008011/recursion-scheme-generator-0.1.0.0/c/recursion-scheme-generator/build/recursion-scheme-generator/recursion-scheme-generator.jsexe") Shell "ccjs all.js --externs=node --externs=all.js.externs > all.min.js"
 
     "target/all.min.js" %> \out -> do
-        need [".stack-work/dist/x86_64-linux/Cabal-1.24.2.0_ghcjs/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.min.js"]
-        cmd Shell "cp .stack-work/dist/x86_64-linux/Cabal-1.24.2.0_ghcjs/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.min.js target/all.min.js"
+        need ["dist-newstyle/build/x86_64-linux/ghcjs-0.2.1.9008011/recursion-scheme-generator-0.1.0.0/c/recursion-scheme-generator/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.min.js"]
+        cmd Shell "cp dist-newstyle/build/x86_64-linux/ghcjs-0.2.1.9008011/recursion-scheme-generator-0.1.0.0/c/recursion-scheme-generator/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.min.js target/all.min.js"
 
     "target/styles.css" %> \out -> do
         liftIO $ createDirectoryIfMissing True "target"

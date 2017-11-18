@@ -1,3 +1,4 @@
+- [ ] transition to cabal
 - [ ] make a miso-madldang template for pi
 - [ ] if statements to insert hypens between vowels (?)
 - [ ] show full filename incl. relative directory
