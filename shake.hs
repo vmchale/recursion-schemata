@@ -12,7 +12,7 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake", shakeLint = Just LintBasi
     want [ "target/index.html", "README.md" ]
 
     "deploy" ~> do
-        need [ "target/index.html" ]
+        need [ "target/index.html", "target/all.min.js" ]
         cmd ["ion", "-c", "cp target/* ~/programming/rust/nessa-site/static/recursion-scheme-generator"]
 
     "clean" ~> do

@@ -46,6 +46,7 @@
     0.5 "meta"
     0.5 "symplecto"
     0.5 "pata"
+    0.2 "scolio"
 
 :define hylo-body
     1.0 "hylo"
@@ -93,6 +94,9 @@
     0.7 monadic ana "morphism"
     0.7 monadic hylo "morphism"
     0.91 monadic cata "morphism"
+
+    # bullshit for boring people
+    0.01 "fold"
 
 :return
     1.0 scheme
