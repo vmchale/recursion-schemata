@@ -17,7 +17,7 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake", shakeLint = Just LintBasi
 
     "clean" ~> do
         putNormal "cleaning files..."
-        unit $ cmd ["rm", "-rf", "tags"]
+        unit $ cmd ["rm", "-rf", "tags", "build"]
         removeFilesAfter "target" ["//*"]
         removeFilesAfter "dist" ["//*"]
         removeFilesAfter "dist-newstyle" ["//*"]
