@@ -31,6 +31,7 @@ library
                      , text
                      , containers
                      , file-embed
+                     , servant <= 0.11
   default-language:    Haskell2010
   if flag(development)
     ghc-options: -Werror
