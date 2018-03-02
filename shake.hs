@@ -1,11 +1,15 @@
 import           Data.Maybe
 import           Data.Monoid
 import           Development.Shake
+import           Development.Shake.Cabal
+import           Development.Shake.CCJS
 import           Development.Shake.Command
+import           Development.Shake.FileDetect
 import           Development.Shake.FilePath
+import           Development.Shake.Linters
 import           Development.Shake.Util
 import           System.Directory
-import qualified System.IO.Strict           as Strict
+import qualified System.IO.Strict             as Strict
 
 main :: IO ()
 main = shakeArgs shakeOptions { shakeFiles = ".shake", shakeLint = Just LintBasic } $ do
@@ -23,14 +27,14 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake", shakeLint = Just LintBasi
         removeFilesAfter "dist-newstyle" ["//*"]
 
     "README.md" %> \out -> do
-        hs <- getDirectoryFiles "" ["src//*.hs"]
-        yaml <- getDirectoryFiles "" ["//*.yaml"]
+        hs <- getHs ["src", "app"]
+        yaml <- getYml
         cabal <- getDirectoryFiles "" ["//*.cabal"]
-        mad <- getDirectoryFiles "" ["//*.mad"]
+        mad <- getMadlang
         html <- getDirectoryFiles "" ["web-src//*.html"]
         css <- getDirectoryFiles "" ["web-src//*.css"]
         need $ hs <> yaml <> cabal <> mad <> html <> css
-        (Stdout out) <- cmd ["tokei", ".", ".travis.yml", ".hlint.yaml", "-e", "README.md", "-e", "TODO.md", "-e", "target", "-e", "Justfile"]
+        (Stdout out) <- cmd ["poly"]
         file <- liftIO $ Strict.readFile "README.md"
         let header = takeWhile (/= replicate 79 '-') $ lines file
         let new = unlines header ++ out ++ "```\n"
@@ -45,19 +49,12 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake", shakeLint = Just LintBasi
         removeFilesAfter ".shake" ["//*"]
         removeFilesAfter "target" ["//*"]
 
-    "dist-newstyle/build/x86_64-linux/ghcjs-0.2.1.9008011/recursion-scheme-generator-0.1.0.0/c/recursion-scheme-generator/opt/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.js" %> \out -> do
-        need ["src/Lib.hs","recursion-scheme-generator.cabal","cabal.project.local","mad-src/recursion-schemes.mad"]
-        -- check the recursion-schemes.mad file so we don't push anything wrong
-        unit $ cmd ["bash", "-c", "madlang check mad-src/recursion-schemes.mad > /dev/null"]
+    "dist-newstyle/build/x86_64-linux/ghcjs-0.2.1.9008011/recursion-scheme-generator-0.1.0.0/x/recursion-scheme-generator/opt/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.js" %> \out -> do
+        need . snd =<< getCabalDepsA "recursion-scheme-generator.cabal"
+        madlang =<< getMadlang
         cmd ["cabal", "new-build"]
 
-    "dist-newstyle/build/x86_64-linux/ghcjs-0.2.1.9008011/recursion-scheme-generator-0.1.0.0/c/recursion-scheme-generator/opt/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.min.js" %> \out -> do
-        need ["dist-newstyle/build/x86_64-linux/ghcjs-0.2.1.9008011/recursion-scheme-generator-0.1.0.0/c/recursion-scheme-generator/opt/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.js"]
-        cmd (Cwd "dist-newstyle/build/x86_64-linux/ghcjs-0.2.1.9008011/recursion-scheme-generator-0.1.0.0/c/recursion-scheme-generator/opt/build/recursion-scheme-generator/recursion-scheme-generator.jsexe") Shell "ccjs all.js --externs=node --externs=all.js.externs > all.min.js"
-
-    "target/all.min.js" %> \out -> do
-        need ["dist-newstyle/build/x86_64-linux/ghcjs-0.2.1.9008011/recursion-scheme-generator-0.1.0.0/c/recursion-scheme-generator/opt/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.min.js"]
-        cmd Shell "cp dist-newstyle/build/x86_64-linux/ghcjs-0.2.1.9008011/recursion-scheme-generator-0.1.0.0/c/recursion-scheme-generator/opt/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.min.js target/all.min.js"
+    ccjs ["dist-newstyle/build/x86_64-linux/ghcjs-0.2.1.9008011/recursion-scheme-generator-0.1.0.0/x/recursion-scheme-generator/opt/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.js"] "target/all.min.js"
 
     "target/styles.css" %> \out -> do
         liftIO $ createDirectoryIfMissing True "target"

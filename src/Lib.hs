@@ -1,4 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE QuasiQuotes       #-}
 {-# LANGUAGE RecordWildCards   #-}
 {-# LANGUAGE TemplateHaskell   #-}
 
@@ -28,6 +29,7 @@ data Action
 exec :: IO ()
 exec = startApp App {..}
   where
+    mountPoint = Nothing
     initialAction = NoOp
     model  = ""
     update = updateModel

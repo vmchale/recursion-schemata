@@ -11,8 +11,6 @@ copyright:           Copyright: (c) 2017 Vanessa McHale
 --category:            Web
 build-type:          Simple
 extra-source-files:  README.md
-                   , stack.yaml
-                   , .travis.yml
                    , mad-src/recursion-schemes.mad
 cabal-version:       >=1.10
 
@@ -27,7 +25,7 @@ library
   exposed-modules:     Lib
   build-depends:       base >= 4.7 && < 5
                      , miso >= 0.9.0.0
-                     , madlang >= 3.0.0.0
+                     , madlang >= 4.0.0.0
                      , text
                      , containers
                      , file-embed
