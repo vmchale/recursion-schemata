@@ -39,7 +39,6 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake", shakeLint = Just LintBasi
         let header = takeWhile (/= replicate 79 '-') $ lines file
         let new = unlines header ++ out ++ "```\n"
         liftIO $ writeFile "README.md" new
-        cmd ["rm", "-f", "README.md.original"]
 
     "purge" ~> do
         putNormal "purging local files..."
