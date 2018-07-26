@@ -2,14 +2,14 @@ import           Data.Maybe
 import           Data.Monoid
 import           Development.Shake
 import           Development.Shake.Cabal
-import           Development.Shake.CCJS
+import           Development.Shake.ClosureCompiler
 import           Development.Shake.Command
 import           Development.Shake.FileDetect
 import           Development.Shake.FilePath
 import           Development.Shake.Linters
 import           Development.Shake.Util
 import           System.Directory
-import qualified System.IO.Strict             as Strict
+import qualified System.IO.Strict                  as Strict
 
 main :: IO ()
 main = shakeArgs shakeOptions { shakeFiles = ".shake", shakeLint = Just LintBasic } $ do
@@ -25,6 +25,7 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake", shakeLint = Just LintBasi
         removeFilesAfter "target" ["//*"]
         removeFilesAfter "dist" ["//*"]
         removeFilesAfter "dist-newstyle" ["//*"]
+        removeFilesAfter ".shake" ["//*"]
 
     "README.md" %> \out -> do
         hs <- getHs ["src", "app"]
@@ -40,20 +41,12 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake", shakeLint = Just LintBasi
         let new = unlines header ++ out ++ "```\n"
         liftIO $ writeFile "README.md" new
 
-    "purge" ~> do
-        putNormal "purging local files..."
-        unit $ cmd ["rm", "-rf", "tags", "shake"]
-        removeFilesAfter "dist-newstyle" ["//*"]
-        removeFilesAfter "dist" ["//*"]
-        removeFilesAfter ".shake" ["//*"]
-        removeFilesAfter "target" ["//*"]
-
     "dist-newstyle/build/x86_64-linux/ghcjs-0.2.1.9008011/recursion-scheme-generator-0.1.0.0/x/recursion-scheme-generator/opt/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.js" %> \out -> do
         need . snd =<< getCabalDepsA "recursion-scheme-generator.cabal"
         madlang =<< getMadlang
         cmd ["cabal", "new-build"]
 
-    ccjs ["dist-newstyle/build/x86_64-linux/ghcjs-0.2.1.9008011/recursion-scheme-generator-0.1.0.0/x/recursion-scheme-generator/opt/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.js"] "target/all.min.js"
+    googleClosureCompiler ["dist-newstyle/build/x86_64-linux/ghcjs-0.2.1.9008011/recursion-scheme-generator-0.1.0.0/x/recursion-scheme-generator/opt/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.js"] "target/all.min.js"
 
     "target/styles.css" %> \out -> do
         liftIO $ createDirectoryIfMissing True "target"
