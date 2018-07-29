@@ -23,7 +23,7 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake", shakeLint = Just LintBasi
         removeFilesAfter ".shake" ["//*"]
 
     "README.md" %> \out -> do
-        hs <- getHs ["src", "app"]
+        hs <- getHs ["src"]
         yaml <- getYml
         cabal <- getDirectoryFiles "" ["//*.cabal"]
         mad <- getMadlang

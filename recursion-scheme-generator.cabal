@@ -25,13 +25,12 @@ flag development
     default: False
     manual: True
 
-library
-    exposed-modules:
-        Lib
+executable recursion-scheme-generator
+    main-is: Main.hs
     hs-source-dirs: src
     default-language: Haskell2010
-    ghc-options: -Wall -Wincomplete-uni-patterns
-                 -Wincomplete-record-updates -Wcompat
+    ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall
+                 -Wincomplete-uni-patterns -Wincomplete-record-updates -Wcompat
     build-depends:
         base >=4.7 && <5,
         miso >=0.9.0.0,
@@ -40,19 +39,6 @@ library
         containers -any,
         file-embed -any,
         servant <=0.11
-    
-    if flag(development)
-        ghc-options: -Werror
-
-executable recursion-scheme-generator
-    main-is: Main.hs
-    hs-source-dirs: app
-    default-language: Haskell2010
-    ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall
-                 -Wincomplete-uni-patterns -Wincomplete-record-updates -Wcompat
-    build-depends:
-        base -any,
-        recursion-scheme-generator -any
     
     if flag(development)
         ghc-options: -Werror
