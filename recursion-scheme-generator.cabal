@@ -1,51 +1,58 @@
-name:                recursion-scheme-generator
-version:             0.1.0.0
--- synopsis:
--- description:
-homepage:            https://github.com/vmchale/recursion-scheme-generator#readme
-license:             BSD3
-license-file:        LICENSE
-author:              Vanessa McHale
-maintainer:          vanessa.mchale@reconfigure.io
-copyright:           Copyright: (c) 2017 Vanessa McHale
---category:            Web
-build-type:          Simple
-extra-source-files:  README.md
-                   , mad-src/recursion-schemes.mad
-cabal-version:       >=1.10
-
-Flag development {
-  Description: Enable `-Werror`
-  manual: True
-  default: False
-}
-
-library
-  hs-source-dirs:      src
-  exposed-modules:     Lib
-  build-depends:       base >= 4.7 && < 5
-                     , miso >= 0.9.0.0
-                     , madlang >= 4.0.0.0
-                     , text
-                     , containers
-                     , file-embed
-                     , servant <= 0.11
-  default-language:    Haskell2010
-  if flag(development)
-    ghc-options: -Werror
-  ghc-options:         -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates -Wcompat
-
-executable recursion-scheme-generator
-  hs-source-dirs:      app
-  main-is:             Main.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
-  build-depends:       base
-                     , recursion-scheme-generator
-  default-language:    Haskell2010
-  if flag(development)
-    ghc-options: -Werror
-  ghc-options:         -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates -Wcompat
+cabal-version: 1.18
+name: recursion-scheme-generator
+version: 0.1.0.0
+license: BSD3
+license-file: LICENSE
+copyright: Copyright: (c) 2017-2018 Vanessa McHale
+maintainer: vanessa.mchale@iohk.io
+author: Vanessa McHale
+synopsis: Recursion scheme generator
+description:
+    Recursion scheme generator with web frontend, written with Miso and Madlang
+category: Web
+build-type: Simple
+extra-source-files:
+    mad-src/recursion-schemes.mad
+extra-doc-files: README.md
 
 source-repository head
-  type:     git
-  location: https://github.com/vmchale/recursion-scheme-generator
+    type: git
+    location: https://github.com/vmchale/recursion-scheme-generator
+
+flag development
+    description:
+        Enable `-Werror`
+    default: False
+    manual: True
+
+library
+    exposed-modules:
+        Lib
+    hs-source-dirs: src
+    default-language: Haskell2010
+    ghc-options: -Wall -Wincomplete-uni-patterns
+                 -Wincomplete-record-updates -Wcompat
+    build-depends:
+        base >=4.7 && <5,
+        miso >=0.9.0.0,
+        madlang >=4.0.0.0,
+        text -any,
+        containers -any,
+        file-embed -any,
+        servant <=0.11
+    
+    if flag(development)
+        ghc-options: -Werror
+
+executable recursion-scheme-generator
+    main-is: Main.hs
+    hs-source-dirs: app
+    default-language: Haskell2010
+    ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall
+                 -Wincomplete-uni-patterns -Wincomplete-record-updates -Wcompat
+    build-depends:
+        base -any,
+        recursion-scheme-generator -any
+    
+    if flag(development)
+        ghc-options: -Werror

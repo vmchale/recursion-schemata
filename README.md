@@ -10,7 +10,7 @@ Written using the [miso](https://haskell-miso.org) framework and the
 -------------------------------------------------------------------------------
  Language             Files       Lines         Code     Comments       Blanks
 -------------------------------------------------------------------------------
- Cabal                    1          51           44            3            4
+ Cabal                    1          58           54            0            4
  Cabal Project            1           3            3            0            0
  CSS                      1          32           28            0            4
  Haskell                  4         190          155            0           35
@@ -20,6 +20,6 @@ Written using the [miso](https://haskell-miso.org) framework and the
  Markdown                 2          29           26            0            3
  YAML                     2          36           35            0            1
 -------------------------------------------------------------------------------
- Total                   14         482          404            4           74
+ Total                   14         489          414            1           74
 -------------------------------------------------------------------------------
 ```
