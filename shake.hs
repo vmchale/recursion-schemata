@@ -15,8 +15,7 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake", shakeLint = Just LintBasi
         cmd ["ion", "-c", "cp target/* ~/programming/rust/nessa-site/static/recursion-scheme-generator"]
 
     "clean" ~> do
-        putNormal "cleaning files..."
-        unit $ cmd ["rm", "-rf", "tags", "build"]
+        unit $ cmd ["rm", "-rf", "tags", "build", "mad-src/tags"]
         removeFilesAfter "target" ["//*"]
         removeFilesAfter "dist" ["//*"]
         removeFilesAfter "dist-newstyle" ["//*"]
@@ -46,8 +45,8 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake", shakeLint = Just LintBasi
     "target/styles.css" %> \out -> do
         liftIO $ createDirectoryIfMissing True "target"
         need ["web-src/styles.css"]
-        cmd ["cp","web-src/styles.css", out]
+        copyFile' "web-src/styles.css" out
 
     "target/index.html" %> \out -> do
         need ["target/all.min.js", "target/styles.css"]
-        cmd ["cp","web-src/index.html", out]
+        copyFile' "web-src/index.html" out
