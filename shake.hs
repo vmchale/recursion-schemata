@@ -22,12 +22,13 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake", shakeLint = Just LintBasi
         removeFilesAfter ".shake" ["//*"]
 
     "README.md" %> \out -> do
+        let getThisDirectory = getDirectoryFiles ""
         hs <- getHs ["src"]
         yaml <- getYml
-        cabal <- getDirectoryFiles "" ["//*.cabal"]
         mad <- getMadlang
-        html <- getDirectoryFiles "" ["web-src//*.html"]
-        css <- getDirectoryFiles "" ["web-src//*.css"]
+        cabal <- getThisDirectory ["//*.cabal"]
+        html <- getThisDirectory ["web-src//*.html"]
+        css <- getThisDirectory ["web-src//*.css"]
         need $ hs <> yaml <> cabal <> mad <> html <> css
         (Stdout out') <- cmd ["poly", "-c"]
         file <- liftIO $ Strict.readFile "README.md"

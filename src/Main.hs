@@ -11,12 +11,17 @@ module Main
 import qualified Data.Map     as M
 import qualified Data.Set     as S
 import           Data.Text    (Text)
-import           Miso
+import           Miso         hiding (Key)
 import           Miso.String
+import           Numeric      (showHex)
 import           Text.Madlibs (madFile, run)
 
 randomText :: IO Text
 randomText = run $(madFile "mad-src/recursion-schemes.mad")
+
+type Key = Int
+
+type PreAttribute = (MisoString, MisoString)
 
 type Model = Text
 
@@ -24,7 +29,6 @@ data Action
   = Regenerate
   | Write Text
   | NoOp
-  deriving (Show, Eq)
 
 main :: IO ()
 main = startApp App {..}
@@ -38,27 +42,34 @@ main = startApp App {..}
     subs   = [ keyboardSub keypress ]
 
 backgroundStyle :: [Attribute action]
-backgroundStyle = [ style_ $ M.fromList [("color", "#4d4d4d"), ("margin-left", "15%"), ("margin-top", "15%") ] ]
+backgroundStyle = [ style_ $ M.fromList [ color 0x4d4d4d, leftMargin 15, topMargin 15 ] ]
+    where leftMargin :: Int -> PreAttribute
+          leftMargin i = ("margin-left", showMiso i <> "%")
+          topMargin :: Int -> PreAttribute
+          topMargin i = ("margin-top", showMiso i <> "%")
+          color :: Int -> PreAttribute
+          color c = ("color", "#" <> toMisoString (showHex c mempty))
 
-largeFont :: [Attribute action]
-largeFont = [ style_ $ M.fromList [("font", "20px \"Comic Sans MS\", Helvetica, sans-serif")] ]
+defaultFonts :: MisoString
+defaultFonts = "\"Comic Sans MS\", Helvetica, sans-serif"
 
-buttonFont :: [Attribute action]
-buttonFont = [ style_ $ M.fromList [("font", "50px \"Comic Sans MS\", Helvetica, sans-serif")] ]
+showMiso :: Show a => a -> MisoString
+showMiso = toMisoString . show
+
+sizedFont :: Int -> [Attribute action]
+sizedFont i = [ style_ $ M.singleton "font" (showMiso i <> "px " <> defaultFonts) ]
 
 buttonTraits :: [Attribute action]
-buttonTraits = class_ "button" : buttonFont
-
-fontStyles :: [Attribute action]
-fontStyles = [ style_ $ M.fromList [("font", "30px \"Comic Sans MS\", Helvetica, sans-serif")] ]
+buttonTraits = class_ "button" : sizedFont 50
 
 updateModel :: Action -> Model -> Effect Action Model
 updateModel Regenerate m = m <# fmap Write randomText
 updateModel (Write t) _  = noEff t
 updateModel NoOp m       = noEff m
 
-keypress :: S.Set Int -> Action
-keypress keys = if 82 `elem` S.toList keys then Regenerate else NoOp
+keypress :: S.Set Key -> Action
+keypress keys = if keyR `elem` S.toList keys then Regenerate else NoOp
+    where keyR = 82
 
 viewModel :: Model -> View Action
 viewModel x = div_ backgroundStyle
@@ -68,6 +79,9 @@ viewModel x = div_ backgroundStyle
     , p_ fontStyles [ text (toMisoString x) ]
     , p_ [] [ footer ]
     ]
+
+    where largeFont = sizedFont 20
+          fontStyles = sizedFont 30
 
 footerParagraph :: [Attribute action]
 footerParagraph = [ style_ $ M.fromList [("align", "bottom"), ("position", "absolute"), ("bottom", "200px")] ]
