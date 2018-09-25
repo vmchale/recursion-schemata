@@ -9,7 +9,7 @@ Written using the [miso](https://haskell-miso.org) framework and the
 If you would like to edit the Madlang source file, the suggested workflow is:
 
 ```
-madlang run mad-src/recursion-schemes.mad | cowthink
+madlang run mad-src/recursion-schemes.mad | cowthink -W 80
 ```
 
 ## Contents
