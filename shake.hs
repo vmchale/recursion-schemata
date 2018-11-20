@@ -1,3 +1,9 @@
+#!/usr/bin/env cabal
+{- cabal:
+build-depends: base, shake, shake-cabal, shake-google-closure-compiler, shake-ext
+default-language: Haskell2010
+-}
+
 import           Development.Shake
 import           Development.Shake.Cabal
 import           Development.Shake.ClosureCompiler
