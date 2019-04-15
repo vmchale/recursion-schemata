@@ -37,8 +37,7 @@ executable recursion-scheme-generator
         madlang >=4.0.0.0,
         text -any,
         containers -any,
-        file-embed -any,
-        servant <=0.11
-    
+        file-embed -any
+
     if flag(development)
         ghc-options: -Werror
