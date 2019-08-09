@@ -42,12 +42,12 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake", shakeLint = Just LintBasi
         let new = unlines header ++ out' ++ "```\n"
         liftIO $ writeFile out new
 
-    "dist-newstyle/build/x86_64-linux/ghcjs-0.2.1.9008011/recursion-scheme-generator-0.1.0.0/x/recursion-scheme-generator/opt/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.js" %> \_ -> do
+    "dist-newstyle/build/x86_64-linux/ghcjs-8.6.0.1/recursion-scheme-generator-0.1.0.0/x/recursion-scheme-generator/opt/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.js" %> \_ -> do
         need . snd =<< getCabalDepsA "recursion-scheme-generator.cabal"
         madlang =<< getMadlang
         cmd ["cabal", "new-build", "--ghcjs"]
 
-    googleClosureCompiler ["dist-newstyle/build/x86_64-linux/ghcjs-0.2.1.9008011/recursion-scheme-generator-0.1.0.0/x/recursion-scheme-generator/opt/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.js"] "target/all.min.js"
+    googleClosureCompiler ["dist-newstyle/build/x86_64-linux/ghcjs-8.6.0.1/recursion-scheme-generator-0.1.0.0/x/recursion-scheme-generator/opt/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.js"] "target/all.min.js"
 
     "target/styles.css" %> \out -> do
         liftIO $ createDirectoryIfMissing True "target"
