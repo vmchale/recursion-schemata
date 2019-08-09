@@ -3,8 +3,8 @@ name: recursion-scheme-generator
 version: 0.1.0.0
 license: BSD3
 license-file: LICENSE
-copyright: Copyright: (c) 2017-2018 Vanessa McHale
-maintainer: vanessa.mchale@iohk.io
+copyright: Copyright: (c) 2017-2019 Vanessa McHale
+maintainer: vamchale@gmail.com
 author: Vanessa McHale
 synopsis: Recursion scheme generator
 description:
