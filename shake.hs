@@ -18,7 +18,7 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake", shakeLint = Just LintBasi
 
     "deploy" ~> do
         need [ "target/index.html", "target/all.min.js" ]
-        cmd ["ion", "-c", "cp target/* ~/programming/rust/nessa-site/static/recursion-scheme-generator"]
+        cmd ["bash", "-c", "cp target/* ~/programming/rust/nessa-site/static/recursion-scheme-generator"]
 
     "clean" ~> do
         unit $ cmd ["rm", "-rf", "tags", "build", "mad-src/tags"]
@@ -43,6 +43,7 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake", shakeLint = Just LintBasi
         liftIO $ writeFile out new
 
     "dist-newstyle/build/x86_64-linux/ghcjs-8.6.0.1/recursion-scheme-generator-0.1.0.0/x/recursion-scheme-generator/opt/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.js" %> \_ -> do
+        need ["cabal.project.local"]
         need . snd =<< getCabalDepsA "recursion-scheme-generator.cabal"
         madlang =<< getMadlang
         cmd ["cabal", "new-build", "--ghcjs"]
