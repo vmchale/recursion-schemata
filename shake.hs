@@ -1,6 +1,6 @@
 #!/usr/bin/env cabal
 {- cabal:
-build-depends: base, shake, shake-cabal, shake-google-closure-compiler, shake-ext, directory, strict
+build-depends: base, shake, shake-cabal, shake-google-closure-compiler, shake-ext, directory, strict, shake-minify-css
 default-language: Haskell2010
 -}
 
@@ -9,6 +9,7 @@ import           Development.Shake.Cabal
 import           Development.Shake.ClosureCompiler
 import           Development.Shake.FileDetect
 import           Development.Shake.Linters
+import           Development.Shake.MinifyCSS
 import           System.Directory
 import qualified System.IO.Strict                  as Strict
 
@@ -50,10 +51,7 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake", shakeLint = Just LintBasi
 
     googleClosureCompiler ["dist-newstyle/build/x86_64-linux/ghcjs-8.6.0.1/recursion-scheme-generator-0.1.0.0/x/recursion-scheme-generator/opt/build/recursion-scheme-generator/recursion-scheme-generator.jsexe/all.js"] "target/all.min.js"
 
-    "target/styles.css" %> \out -> do
-        liftIO $ createDirectoryIfMissing True "target"
-        need ["web-src/styles.css"]
-        copyFile' "web-src/styles.css" out
+    minifyCSSRules "web-src/styles.css" "target/styles.css"
 
     "target/index.html" %> \out -> do
         need ["target/all.min.js", "target/styles.css"]
