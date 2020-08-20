@@ -39,7 +39,7 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake", shakeLint = Just LintBasi
         need $ hs <> yaml <> cabal <> mad <> html <> css
         (Stdout out') <- cmd ["poly", "-c"]
         file <- liftIO $ Strict.readFile "README.md"
-        let header = takeWhile (/= replicate 79 '-') $ lines file
+        let header = takeWhile (/= replicate 79 '─') $ lines file
         let new = unlines header ++ out' ++ "```\n"
         liftIO $ writeFile out new
 
